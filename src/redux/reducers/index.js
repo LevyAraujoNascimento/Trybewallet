@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   email: '',
 };
 
-const loginReducer = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'ADD_EMAIL':
     return {
@@ -22,6 +22,6 @@ const loginReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-const rootReducer = combineReducers({ loginReducer });
+const rootReducer = combineReducers({ user });
 
 export default rootReducer;
