@@ -6,11 +6,15 @@
 
 import { combineReducers } from 'redux';
 
-const INITIAL_STATE = {
+const USER_STATE = {
   email: '',
 };
 
-const user = (state = INITIAL_STATE, action) => {
+const WALLET_STATE = {
+  currencies: [],
+};
+
+const user = (state = USER_STATE, action) => {
   switch (action.type) {
   case 'ADD_EMAIL':
     return {
@@ -22,6 +26,18 @@ const user = (state = INITIAL_STATE, action) => {
   }
 };
 
-const rootReducer = combineReducers({ user });
+const wallet = (state = WALLET_STATE, action) => {
+  switch (action.type) {
+  case 'RECEIVE_CURRENCIES':
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
+  default:
+    return state;
+  }
+};
+
+const rootReducer = combineReducers({ user, wallet });
 
 export default rootReducer;

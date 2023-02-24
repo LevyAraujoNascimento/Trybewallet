@@ -8,7 +8,7 @@ class Header extends Component {
     const valor = 0;
     const cambio = 'BRL';
     return (
-      <div>
+      <fieldset>
         <h2
           data-testid="email-field"
         >
@@ -24,7 +24,7 @@ class Header extends Component {
         >
           { cambio }
         </h2>
-      </div>
+      </fieldset>
     );
   }
 }
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  email: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
