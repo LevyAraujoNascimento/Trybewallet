@@ -12,6 +12,9 @@ const USER_STATE = {
 
 const WALLET_STATE = {
   currencies: [],
+  expenses: [],
+  er: {},
+  total: 0,
 };
 
 const user = (state = USER_STATE, action) => {
@@ -35,6 +38,19 @@ const wallet = (state = WALLET_STATE, action) => {
     return {
       ...state,
       currencies: Object.keys(action.currencies),
+      er: action.currencies,
+    };
+  case 'ADD_EXPENSES': {
+    const newExpenses = state.expenses.concat(action.expenses);
+    return {
+      ...state,
+      expenses: newExpenses,
+    };
+  }
+  case 'ADD_MONEY':
+    return {
+      ...state,
+      total: state.total + action.valor,
     };
   default:
     return state;
