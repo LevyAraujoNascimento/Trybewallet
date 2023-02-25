@@ -27,11 +27,14 @@ const user = (state = USER_STATE, action) => {
 };
 
 const wallet = (state = WALLET_STATE, action) => {
+  if (action.currencies !== undefined) {
+    delete action.currencies.USDT;
+  }
   switch (action.type) {
   case 'RECEIVE_CURRENCIES':
     return {
       ...state,
-      currencies: action.currencies,
+      currencies: Object.keys(action.currencies),
     };
   default:
     return state;

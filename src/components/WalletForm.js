@@ -11,7 +11,17 @@ class WalletForm extends Component {
 
   render() {
     const { currencies } = this.props;
-    console.log(currencies);
+    let moedas = '---';
+    if (currencies !== undefined) {
+      moedas = currencies.map((e) => (
+        <option
+          key={ e }
+          value={ e }
+        >
+          { e }
+        </option>
+      ));
+    }
     return (
       <div>
         <form>
@@ -41,7 +51,33 @@ class WalletForm extends Component {
               name="currency-input"
               data-testid="currency-input"
             >
-              <option value="valor1">Valor 1</option>
+              { moedas }
+            </select>
+          </label>
+          <label htmlFor="method-input">
+            Forma de Pagamento :
+            <select
+              id="method-input"
+              name="method-input"
+              data-testid="method-input"
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag-input">
+            Categoria :
+            <select
+              id="tag-input"
+              name="tag-input"
+              data-testid="tag-input"
+            >
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
         </form>
@@ -55,13 +91,8 @@ const mapStateToProps = (state) => ({
 });
 
 WalletForm.propTypes = {
-  dispatch: PropTypes.func,
-  currencies: PropTypes.arrayOf(PropTypes.object),
-};
-
-WalletForm.defaultProps = {
-  dispatch: null,
-  currencies: null,
+  dispatch: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);
