@@ -1,0 +1,13 @@
+#table {
+    width: 100%;
+    border: 3px solid black;
+}
+
+#table-header {
+    width: 100%; 
+}
+
+#table-list {
+    display: flex;
+    justify-content: space-between;
+}
