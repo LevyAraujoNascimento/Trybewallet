@@ -124,7 +124,7 @@ class WalletForm extends Component {
               id="currency-input"
               name="currency-input"
               data-testid="currency-input"
-              onChange={ this.itIsCurrency }
+              onClick={ this.itIsCurrency }
             >
               { moedas }
             </select>
@@ -135,7 +135,7 @@ class WalletForm extends Component {
               id="method-input"
               name="method-input"
               data-testid="method-input"
-              onChange={ this.itIsMethod }
+              onClick={ this.itIsMethod }
             >
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -148,7 +148,7 @@ class WalletForm extends Component {
               id="tag-input"
               name="tag-input"
               data-testid="tag-input"
-              onChange={ this.itIsTag }
+              onClick={ this.itIsTag }
             >
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
