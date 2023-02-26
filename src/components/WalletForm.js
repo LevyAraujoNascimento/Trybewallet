@@ -126,7 +126,6 @@ class WalletForm extends Component {
               data-testid="currency-input"
               onChange={ this.itIsCurrency }
             >
-              <option value="---">---</option>
               { moedas }
             </select>
           </label>
@@ -138,7 +137,6 @@ class WalletForm extends Component {
               data-testid="method-input"
               onChange={ this.itIsMethod }
             >
-              <option value="---">---</option>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
@@ -152,7 +150,6 @@ class WalletForm extends Component {
               data-testid="tag-input"
               onChange={ this.itIsTag }
             >
-              <option value="---">---</option>
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
