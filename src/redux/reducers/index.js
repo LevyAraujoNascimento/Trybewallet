@@ -15,6 +15,9 @@ const WALLET_STATE = {
   expenses: [],
   er: {},
   total: 0,
+  edit: false,
+  editID: 0,
+  editValue: '',
 };
 
 const user = (state = USER_STATE, action) => {
@@ -30,9 +33,7 @@ const user = (state = USER_STATE, action) => {
 };
 
 const wallet = (state = WALLET_STATE, action) => {
-  if (action.currencies !== undefined) {
-    delete action.currencies.USDT;
-  }
+  if (action.currencies !== undefined) { delete action.currencies.USDT; }
   switch (action.type) {
   case 'RECEIVE_CURRENCIES':
     return {
@@ -65,6 +66,18 @@ const wallet = (state = WALLET_STATE, action) => {
     return {
       ...state,
       total: state.total - action.valor,
+    };
+  case 'EDIT_ON':
+    return {
+      ...state,
+      edit: true,
+      editID: action.id,
+      editValue: action.value,
+    };
+  case 'EDIT_OFF':
+    return {
+      ...state,
+      edit: false,
     };
   default:
     return state;

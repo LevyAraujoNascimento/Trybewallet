@@ -8,6 +8,8 @@ export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const ADD_MONEY = 'ADD_MONEY';
 export const REMOVE_MONEY = 'REMOVE_MONEY';
+export const EDIT_ON = 'EDIT_ON';
+export const EDIT_OFF = 'EDIT_OFF';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -32,6 +34,16 @@ export const addMoney = (valor) => ({
 export const removeMoney = (valor) => ({
   type: REMOVE_MONEY,
   valor,
+});
+
+export const editOn = (id, value) => ({
+  type: EDIT_ON,
+  id,
+  value,
+});
+
+export const editOff = () => ({
+  type: EDIT_OFF,
 });
 
 export const addExpenses = (...args) => ({

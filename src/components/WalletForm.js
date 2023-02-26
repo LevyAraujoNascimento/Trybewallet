@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies, addExpenses, addMoney } from '../redux/actions';
+import { fetchCurrencies,
+  addExpenses,
+  deleteExpense,
+  addMoney,
+  removeMoney,
+  editOff } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -78,10 +83,51 @@ class WalletForm extends Component {
     }));
   };
 
+  editarForm = () => {
+    this.att();
+    const { dispatch, editID, editValue, er } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const finalValue = parseFloat(value) * parseFloat(er[currency].ask);
+    dispatch(deleteExpense(editID));
+    dispatch(addExpenses(
+      editID,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      er,
+    ));
+    dispatch(removeMoney(parseFloat(editValue)));
+    dispatch(addMoney(parseFloat(finalValue)));
+    dispatch(editOff());
+  };
+
   render() {
-    const { currencies } = this.props;
+    const { currencies, edit } = this.props;
     const { value, description } = this.state;
     let moedas = '---';
+    let submmitButton = '';
+    if (edit === false) {
+      submmitButton = (
+        <button
+          type="button"
+          onClick={ this.enviarForm }
+        >
+          Adicionar despesa
+        </button>
+      );
+    }
+    if (edit === true) {
+      submmitButton = (
+        <button
+          type="button"
+          onClick={ this.editarForm }
+        >
+          Editar despesa
+        </button>
+      );
+    }
     if (currencies !== undefined) {
       moedas = currencies.map((e) => (
         <option
@@ -157,12 +203,7 @@ class WalletForm extends Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
-          <button
-            type="button"
-            onClick={ this.enviarForm }
-          >
-            Adicionar despesa
-          </button>
+          { submmitButton }
         </form>
       </div>
     );
@@ -173,6 +214,9 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
   er: state.wallet.er,
+  edit: state.wallet.edit,
+  editID: state.wallet.editID,
+  editValue: state.wallet.editValue,
 });
 
 WalletForm.propTypes = {
@@ -180,6 +224,9 @@ WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   er: PropTypes.objectOf(PropTypes.object.isRequired).isRequired,
+  edit: PropTypes.bool.isRequired,
+  editID: PropTypes.number.isRequired,
+  editValue: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);
