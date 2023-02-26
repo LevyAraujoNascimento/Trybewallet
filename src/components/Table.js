@@ -35,7 +35,7 @@ class Table extends Component {
           <td>{ parseFloat(ask).toFixed(2) }</td>
           <td>{ total.toFixed(2) }</td>
           <td>Real</td>
-          <td id="botoesExp">
+          <td className="botoesExp">
             <button
               data-testid="edit-btn"
               type="button"
