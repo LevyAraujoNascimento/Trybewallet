@@ -25,7 +25,7 @@ class Table extends Component {
       const numAsk = parseFloat(ask);
       const total = numAsk * numValue;
       return (
-        <tr key={ element.id }>
+        <tr key={ element.id } className="despesa">
           <td>{ element.description }</td>
           <td>{ element.tag }</td>
           <td>{ element.method }</td>
