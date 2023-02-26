@@ -5,7 +5,9 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const ADD_MONEY = 'ADD_MONEY';
+export const REMOVE_MONEY = 'REMOVE_MONEY';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -27,6 +29,11 @@ export const addMoney = (valor) => ({
   valor,
 });
 
+export const removeMoney = (valor) => ({
+  type: REMOVE_MONEY,
+  valor,
+});
+
 export const addExpenses = (...args) => ({
   // id, value, desc, cur, met, tag, er
   type: ADD_EXPENSES,
@@ -39,6 +46,11 @@ export const addExpenses = (...args) => ({
     tag: args[5],
     exchangeRates: args[6],
   },
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
 });
 
 export function fetchCurrencies() {

@@ -16,7 +16,7 @@ class Header extends Component {
         <h2
           data-testid="total-field"
         >
-          { total.toFixed(2) }
+          { Math.abs(total).toFixed(2) }
         </h2>
         <h2
           data-testid="header-currency-field"

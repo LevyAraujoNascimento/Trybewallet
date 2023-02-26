@@ -52,6 +52,20 @@ const wallet = (state = WALLET_STATE, action) => {
       ...state,
       total: state.total + action.valor,
     };
+  case 'DELETE_EXPENSE': {
+    const newExpenses = state.expenses.filter((element) => (
+      element.id !== action.id
+    ));
+    return {
+      ...state,
+      expenses: newExpenses,
+    };
+  }
+  case 'REMOVE_MONEY':
+    return {
+      ...state,
+      total: state.total - action.valor,
+    };
   default:
     return state;
   }

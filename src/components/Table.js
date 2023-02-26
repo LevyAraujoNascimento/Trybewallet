@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense, removeMoney } from '../redux/actions';
 import './compCSS.css';
 
 class Table extends Component {
+  deletar = (id, total) => {
+    const { dispatch } = this.props;
+    dispatch(deleteExpense(id));
+    dispatch(removeMoney(total));
+  };
+
   render() {
     const { expenses } = this.props;
     const despesas = expenses.map((element) => {
@@ -22,6 +29,15 @@ class Table extends Component {
           <td>{ parseFloat(ask).toFixed(2) }</td>
           <td>{ total.toFixed(2) }</td>
           <td>Real</td>
+          <td id="botoesExp">
+            <button
+              data-testid="delete-btn"
+              type="button"
+              onClick={ () => this.deletar(element.id, total) }
+            >
+              Excluir
+            </button>
+          </td>
         </tr>
       );
     });
@@ -41,7 +57,7 @@ class Table extends Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table-body">
             { despesas }
           </tbody>
         </table>
@@ -55,6 +71,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
