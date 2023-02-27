@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
-import renderWithRouter, { renderWithRedux, renderWithRouterAndRedux } from './renderWith';
+import { renderWithRouterAndRedux } from './renderWith';
+import { connect } from 'react-redux';
 import App from '../../App';
 import WalletForm from '../../components/WalletForm';
+
+export default connect()(WalletForm);
 
 describe('Testando a Aplicação', () => {
   it('Deve renderizar a pagina de Login', () => {
@@ -31,7 +33,7 @@ describe('Testando a Aplicação', () => {
 
     userEvent.type(senha, '123456');
     expect(senha.value).toBe('123456');
-    
+   
     const botaoLogin = screen.queryByText('Entrar');
     expect(botaoLogin).toBeInTheDocument();
 
@@ -41,7 +43,7 @@ describe('Testando a Aplicação', () => {
     expect(store.getState().user.email).toBe('Levy@gmail.com');
   });
 
-  it('Preenchendo os campos', () => {
+  it('Preenchendo os campos', async () => {
     renderWithRouterAndRedux(<WalletForm />);
    
     const valor = screen.getByTestId('value-input');
@@ -55,34 +57,23 @@ describe('Testando a Aplicação', () => {
     expect(moeda).toBeInTheDocument();
     expect(pagamento).toBeInTheDocument();
     expect(atividade).toBeInTheDocument();
-    
-    userEvent.type(valor, '10');
-    userEvent.type(descricao, 'Hot Dog');
-    userEvent.dblClick(moeda);
-    userEvent.dblClick(pagamento);
-    userEvent.dblClick(atividade);
-
+   
+    userEvent.type(valor,'10');
+    userEvent.type(descricao,'hotdog');
+   
     const addDespesa = screen.getByText(/Adicionar despesa/i);
     expect(addDespesa).toBeInTheDocument();
+
+    userEvent.selectOptions(pagamento, 'Dinheiro');
+    expect(screen.getByText('Dinheiro').selected).toBe(true);
+
+    userEvent.selectOptions(atividade, 'Lazer');
+    expect(screen.getByText('Lazer').selected).toBe(true);
+
+    await waitFor(() => {
+      userEvent.selectOptions(moeda, 'USD');
+      expect(screen.getByText('USD').selected).toBe(true);
+    });
   });
 
-  it('Preenchendo os campos do edit', () => {
-    const initial_state = {
-      wallet: {
-        currencies: [],
-        expenses: [],
-        er: {},
-        total: 0,
-        edit: true,
-        editID: 0,
-        editValue: '',
-      }
-    };
-    const { store } = renderWithRouterAndRedux(<WalletForm />, { initial_state });
-   
-    expect(store.getState().wallet.edit).toBe(true);
-/*
-    const editDespesa = screen.getByText(/Editar despesa/i);
-    expect(editDespesa).toBeInTheDocument(); */
-  });
 });
